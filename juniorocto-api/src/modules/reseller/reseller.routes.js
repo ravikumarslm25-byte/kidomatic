@@ -1,0 +1,22 @@
+import { Router } from "express";
+import { requireAudience, requireRole } from "../../core/auth/auth.middleware.js";
+import * as c from "./reseller.controller.js";
+const r = Router();
+r.use(requireAudience("reseller"), requireRole("Reseller Admin", "Reseller Support"));
+r.get("/summary", c.summary);
+r.get("/schools", c.listSchools);
+r.post("/schools", c.createSchool);
+r.patch("/schools/:id", c.updateSchool);
+r.get("/schools/:id/branches", c.listBranches);
+r.post("/schools/:id/branches", c.createBranch);
+r.post("/schools/:id/invite", c.inviteSchoolUser);
+// business portal
+r.get("/subscriptions", c.listSubscriptions);
+r.get("/transactions", c.listTransactions);
+r.get("/payouts", c.listPayouts);
+r.get("/revenue", c.revenue);
+r.get("/referral", c.referral);
+r.get("/offers", c.listOffers);
+r.post("/offers", c.createOffer);
+r.patch("/offers/:id", c.updateOffer);
+export default r;

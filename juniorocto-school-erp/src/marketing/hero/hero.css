@@ -1,0 +1,279 @@
+/* ── Homepage hero ── */
+.jo-hero {
+  background:
+    radial-gradient(60% 55% at 78% 40%, rgba(255,255,255,.75), transparent 70%),
+    radial-gradient(45% 50% at 8% 20%, rgba(255,255,255,.55), transparent 70%),
+    linear-gradient(180deg, #EAF6FD 0%, #DDF0FB 55%, #D3EBFA 100%);
+}
+.jo-hero-inner { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) {
+  .jo-hero-inner {
+    grid-template-columns: minmax(0, .74fr) minmax(0, 1fr);
+    min-height: max(660px, calc(100svh - 84px));
+  }
+}
+
+.jo-hero-title {
+  font-weight: 700;
+  font-size: clamp(2.5rem, .4rem + 3.9vw, 4.6rem);
+  line-height: 1.06;
+  letter-spacing: -.025em;
+}
+@media (min-width: 1024px) { .jo-hero-title > span { white-space: nowrap; } }
+
+/* CTAs */
+.jo-cta {
+  display: inline-flex; align-items: center; gap: .65rem;
+  border-radius: 999px; padding: 1rem 1.8rem; white-space: nowrap;
+  font-family: Fredoka, sans-serif; font-weight: 600; font-size: 1.15rem; line-height: 1;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, background-color .18s ease, color .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (min-width: 1536px) { .jo-cta { padding: 1.05rem 2.1rem; font-size: 1.2rem; } }
+.jo-cta:focus-visible { outline: 3px solid #1A66D9; outline-offset: 3px; }
+.jo-cta:active { transform: translateY(1px) scale(.97); transition-duration: .1s; }
+.jo-cta-primary { background: #F26A10; color: #fff; box-shadow: 0 16px 30px -14px rgba(242,106,16,.75); }
+.jo-cta-primary:hover { background: #E05A05; transform: translateY(-3px); box-shadow: 0 22px 36px -14px rgba(242,106,16,.85); }
+.jo-cta-primary svg { transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+.jo-cta-primary:hover svg, .jo-cta-primary[aria-expanded="true"] svg { transform: translateX(3px); }
+.jo-cta-primary[aria-expanded="true"] svg { transform: rotate(90deg); }
+.jo-cta-outline { background: #fff; color: #0E2747; border: 2px solid #1A66D9; }
+.jo-cta-outline svg { color: #1A66D9; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.jo-cta-outline:hover { background: #F0F6FF; transform: translateY(-3px); box-shadow: 0 14px 28px -16px rgba(26,102,217,.55); }
+.jo-cta-outline:hover svg { transform: scale(1.15); }
+
+/* decorations */
+.jo-bubble {
+  position: absolute; border-radius: 999px;
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.95) 0 10%, rgba(255,255,255,.35) 24%, rgba(120,200,240,.30) 62%, rgba(70,160,225,.55) 100%);
+  box-shadow: inset 0 0 10px rgba(255,255,255,.7), 0 8px 18px -8px rgba(40,120,200,.45);
+  border: 1px solid rgba(255,255,255,.7);
+}
+.jo-cloud { position: absolute; border-radius: 999px; background: rgba(255,255,255,.7); filter: blur(28px); }
+.jo-cloud-drift { animation: jo-cloud 50s ease-in-out infinite alternate; }
+
+/* parallax layers follow --px / --py (set on the hero by HomeHero), in opposite directions */
+.jo-par-far  { transform: translate3d(calc(var(--px, 0) * -16px), calc(var(--py, 0) * -9px), 0); transition: transform 1.2s cubic-bezier(.22,1,.36,1); }
+.jo-par-near { transform: translate3d(calc(var(--px, 0) * 9px), calc(var(--py, 0) * 6px), 0); transition: transform 1s cubic-bezier(.22,1,.36,1); }
+
+@keyframes jo-drift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes jo-rise {
+  0% { transform: translate(0, 0) scale(.85); opacity: 0; }
+  10% { opacity: .85; }
+  50% { transform: translate(10px, -42vh) scale(1); }
+  90% { opacity: .6; }
+  100% { transform: translate(-6px, -85vh) scale(1.1); opacity: 0; }
+}
+@keyframes jo-cloud { from { transform: translateX(-28px); } to { transform: translateX(34px); } }
+@keyframes jo-twinkle { 0%,100% { transform: scale(1) rotate(0); opacity: 1; } 50% { transform: scale(.72) rotate(18deg); opacity: .6; } }
+@keyframes jo-octo {
+  0%,100% { transform: translateY(0) rotate(-3deg); }
+  25% { transform: translateY(-8px) rotate(2deg); }
+  50% { transform: translateY(-14px) rotate(-1deg); }
+  75% { transform: translateY(-6px) rotate(3deg); }
+}
+@keyframes jo-phone { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes jo-hand { 0%,60%,100% { transform: rotate(0); } 10%,30% { transform: rotate(16deg); } 20%,40% { transform: rotate(-8deg); } }
+@keyframes jo-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+.jo-drift { animation: jo-drift 7s ease-in-out infinite; }
+.jo-rise { animation: jo-rise 18s linear infinite; }
+.jo-twinkle { animation: jo-twinkle 3.2s ease-in-out infinite; transform-origin: center; }
+.jo-octo { animation: jo-octo 6s ease-in-out infinite; transform-origin: 50% 80%; filter: drop-shadow(0 22px 22px rgba(20,51,94,.25)); }
+.jo-phone-float { animation: jo-phone 6.5s ease-in-out infinite; }
+.jo-wave-hand { animation: jo-hand 2.8s ease-in-out infinite; transform-origin: 70% 80%; }
+.jo-hero-copy { animation: jo-in .7s ease-out both; }
+.jo-hero-visual { animation: jo-in .9s .1s ease-out both; }
+
+/* tappable decorations: bubbles pop and re-form, stars spin */
+.jo-tappable { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.jo-bubble.is-popped { animation: jo-pop .7s ease-out; }
+.jo-tappable.is-spun { animation: jo-star-spin .8s cubic-bezier(.34,1.56,.64,1); }
+@keyframes jo-pop {
+  0% { transform: scale(1); opacity: 1; }
+  30% { transform: scale(1.45); opacity: 0; }
+  31% { transform: scale(.2); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes jo-star-spin { 0% { transform: rotate(0) scale(1); } 50% { transform: rotate(200deg) scale(1.45); } 100% { transform: rotate(360deg) scale(1); } }
+
+/* ── Octo ──
+   lean (pointer) → drift → float → sway → react. Each loop has its own length so the
+   combined motion never repeats mechanically. Distances are % of Octo, so it scales. */
+.jo-octo-lean {
+  position: relative;
+  transform: translate3d(calc(var(--lx, 0) * 14px), calc(var(--ly, 0) * 10px), 0) rotate(calc(var(--lx, 0) * 7deg));
+  transition: transform .8s cubic-bezier(.22,1,.36,1);
+}
+.jo-octo-drift { animation: jo-octo-drift 19s ease-in-out infinite; }
+.jo-octo-float { animation: jo-octo-float 3.7s ease-in-out infinite; }
+.jo-octo-sway  { animation: jo-octo-sway 6.3s ease-in-out infinite; transform-origin: 50% 80%; }
+.jo-octo-react.is-hop   { animation: jo-octo-hop .8s cubic-bezier(.3,1.5,.5,1); }
+.jo-octo-react.is-hello { animation: jo-octo-hello 1.5s ease-in-out; transform-origin: 50% 85%; }
+@keyframes jo-octo-drift {
+  0%,100% { transform: translate(0, 0); }
+  22% { transform: translate(-7%, -6%); }
+  46% { transform: translate(4%, -12%); }
+  68% { transform: translate(9%, -3%); }
+  86% { transform: translate(-2%, 3%); }
+}
+@keyframes jo-octo-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5%); } }
+@keyframes jo-octo-sway { 0%,100% { transform: rotate(-4deg); } 30% { transform: rotate(3deg); } 55% { transform: rotate(-1.5deg); } 80% { transform: rotate(4deg); } }
+@keyframes jo-octo-hop {
+  0% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-15%) rotate(-6deg) scale(1.04); }
+  55% { transform: translateY(0) rotate(3deg) scale(1); }
+  75% { transform: translateY(-4%) rotate(-2deg); }
+  100% { transform: translateY(0) rotate(0); }
+}
+@keyframes jo-octo-hello { 0%,100% { transform: rotate(0); } 15% { transform: rotate(-8deg); } 30% { transform: rotate(7deg); } 45% { transform: rotate(-6deg); } 60% { transform: rotate(5deg); } 78% { transform: rotate(-2deg); } }
+
+.jo-octo-btn {
+  display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer;
+  border-radius: 42%; -webkit-tap-highlight-color: transparent;
+  filter: drop-shadow(0 22px 22px rgba(20,51,94,.25));
+  transition: transform .45s cubic-bezier(.34,1.56,.64,1);
+}
+.jo-octo-lean.is-near .jo-octo-btn { transform: scale(1.05); }
+.jo-octo-btn:active, .jo-octo-lean.is-near .jo-octo-btn:active { transform: scale(.93); transition-duration: .12s; }
+.jo-octo-btn:focus-visible { outline: 3px solid #1A66D9; outline-offset: 4px; }
+
+.jo-octo-tools { position: absolute; top: 100%; left: -6%; margin-top: 2px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; white-space: nowrap; }
+.jo-octo-hint { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 14px; line-height: 1.2; color: #1A66D9; transform: rotate(-4deg); animation: jo-hint 2.4s ease-in-out infinite; }
+@keyframes jo-hint { 0%,100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-4deg) translateY(-3px); } }
+.jo-octo-sound {
+  display: grid; place-items: center; width: 36px; height: 36px; flex-shrink: 0; border-radius: 999px;
+  background: #fff; color: #1A66D9; box-shadow: 0 8px 18px -10px rgba(20,51,94,.55); border: 1px solid rgba(20,51,94,.08);
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), background-color .2s;
+}
+.jo-octo-sound:hover { transform: translateY(-2px); background: #F0F6FF; }
+.jo-octo-sound:active { transform: scale(.92); }
+.jo-octo-sound[aria-pressed="true"] { color: #14335E; opacity: .7; }
+.jo-octo-sound:focus-visible, .jo-octo-hear:focus-visible, .jo-picker-close:focus-visible { outline: 3px solid #1A66D9; outline-offset: 2px; }
+
+/* speech bubble (tail points down at Octo; in compact mode it sits under the showcase) */
+.jo-octo-bubble {
+  position: absolute; z-index: 30;
+  padding: 12px 14px 10px; border-radius: 22px; background: #fff; border: 2px solid #CFE3FA;
+  box-shadow: 0 18px 36px -18px rgba(20,51,94,.45);
+  font-family: Fredoka, sans-serif; font-weight: 600; font-size: 15px; line-height: 1.3; color: #0E2747;
+  opacity: 0; transform: translateY(10px) scale(.88); transform-origin: 30% 100%; pointer-events: none;
+  transition: opacity .3s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.jo-octo-bubble.is-open { opacity: 1; transform: none; pointer-events: auto; }
+.jo-octo-bubble.is-narrow { padding: 10px 11px 9px; font-size: 14px; }
+.jo-octo-bubble::after {
+  content: ""; position: absolute; right: 30px; bottom: -9px; width: 16px; height: 16px; background: #fff;
+  border-right: 2px solid #CFE3FA; border-bottom: 2px solid #CFE3FA; transform: rotate(45deg);
+}
+.jo-octo-bubble.is-compact { left: 12px; right: 12px; bottom: 6px; margin: 0 auto; max-width: 340px; opacity: 1; transform: none; pointer-events: auto; }
+.jo-octo-bubble.is-compact::after { bottom: auto; top: -9px; right: auto; left: 34px; transform: rotate(225deg); }
+.jo-octo-bubble-hint { margin-top: 2px; font-size: 13px; color: #1A66D9; }
+.jo-octo-bubble-tools { margin-top: 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.jo-octo-hear {
+  display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px;
+  background: #EAF2FF; color: #1A66D9; font-size: 13px; font-weight: 600; transition: background-color .2s, transform .2s;
+}
+.jo-octo-hear:hover { background: #DCE9FF; }
+.jo-octo-hear:active { transform: scale(.95); }
+.jo-octo-bubble.is-compact .jo-octo-sound { width: 32px; height: 32px; }
+
+/* sparkle burst */
+.jo-sparkles { position: absolute; left: 50%; top: 45%; width: 0; height: 0; pointer-events: none; z-index: 40; }
+.jo-sparkles i {
+  position: absolute; left: -6px; top: -6px; width: 12px; height: 12px;
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  animation: jo-spark .8s cubic-bezier(.2,.8,.3,1) forwards;
+}
+@keyframes jo-spark {
+  0% { transform: rotate(var(--a)) translateY(0) scale(.3); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: rotate(var(--a)) translateY(calc(var(--d) * -1)) scale(1.1) rotate(120deg); opacity: 0; }
+}
+
+/* ── World cards ── idle wrapper (gentle float) → link (hover lift + tilt, press, pick) */
+.jo-card-idle { animation: jo-card-idle 5.2s ease-in-out infinite; }
+.jo-card-idle-numbers { animation-duration: 6.1s; animation-delay: -2s; }
+.jo-card-idle-shapes { animation-duration: 5.7s; animation-delay: -3.6s; }
+@keyframes jo-card-idle { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+.jo-world-card {
+  position: relative;
+  box-shadow: 0 22px 40px -20px rgba(20,51,94,.55), inset 0 1px 0 rgba(255,255,255,.35);
+  transition: transform .45s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.jo-world-card:hover, .jo-world-card:focus-visible {
+  transform: translateY(-10px) rotate(-2deg);
+  box-shadow: 0 32px 50px -20px rgba(20,51,94,.6), inset 0 1px 0 rgba(255,255,255,.35);
+}
+.jo-world-card:active { transform: translateY(-3px) scale(.97); transition-duration: .12s; }
+.jo-world-card:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.jo-world-card.is-picked { animation: jo-card-pick .75s cubic-bezier(.34,1.56,.64,1); }
+.jo-world-numbers.is-picked { animation-name: jo-card-pick-spin; }
+@keyframes jo-card-pick { 0% { transform: scale(1); } 35% { transform: translateY(-12px) scale(1.06) rotate(-3deg); } 65% { transform: translateY(-4px) rotate(2deg); } 100% { transform: none; } }
+@keyframes jo-card-pick-spin { 0% { transform: scale(1); } 35% { transform: translateY(-12px) scale(1.06) rotate(-8deg); } 65% { transform: translateY(-4px) rotate(5deg); } 100% { transform: none; } }
+
+.jo-card-say {
+  position: absolute; left: 50%; bottom: 100%; z-index: 5; margin-bottom: 14px;
+  padding: 8px 14px; border-radius: 16px; background: #fff; white-space: nowrap;
+  font-family: Fredoka, sans-serif; font-weight: 600; font-size: 16px; color: #0E2747;
+  box-shadow: 0 14px 28px -14px rgba(20,51,94,.55);
+  opacity: 0; transform: translate(-50%, 8px) scale(.85); pointer-events: none;
+  transition: opacity .25s ease, transform .45s cubic-bezier(.34,1.56,.64,1);
+}
+.jo-card-say::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 12px; height: 12px; margin-left: -6px; background: #fff; transform: rotate(45deg); }
+.jo-card-say.is-open { opacity: 1; transform: translate(-50%, 0); }
+
+/* card illustrations — only on the big hero cards; the phone's mini cards stay still */
+.jo-world-card .jo-cow-head, .jo-world-card .jo-block, .jo-world-card .jo-chick, .jo-world-card .jo-lion,
+.jo-world-card .jo-shape-tri, .jo-world-card .jo-shape-cube, .jo-world-card .jo-shape-ball { transform-box: fill-box; transform-origin: 50% 50%; }
+.jo-world-card .jo-cow-head { transform-origin: 70% 90%; animation: jo-cow-nod 3.2s ease-in-out infinite; }
+@keyframes jo-cow-nod { 0%,60%,100% { transform: rotate(0); } 70% { transform: rotate(-9deg); } 80% { transform: rotate(5deg); } 90% { transform: rotate(-4deg); } }
+.jo-world-card .jo-block { transform-origin: 50% 100%; animation: jo-block-hop 2.4s ease-in-out infinite; }
+.jo-world-card .jo-block-2 { animation-delay: .25s; }
+.jo-world-card .jo-block-3 { animation-delay: .5s; }
+@keyframes jo-block-hop { 0%,40%,100% { transform: translateY(0); } 15% { transform: translateY(-14%); } 28% { transform: translateY(0); } }
+.jo-world-card .jo-chick { transform-origin: 50% 100%; animation: jo-chick 2.4s .75s ease-in-out infinite; }
+@keyframes jo-chick { 0%,40%,100% { transform: rotate(0); } 15% { transform: rotate(-8deg); } 28% { transform: rotate(6deg); } }
+.jo-world-card .jo-lion { animation: jo-lion-breathe 3.4s ease-in-out infinite; }
+@keyframes jo-lion-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05) translateY(-2%); } }
+.jo-world-card .jo-shape-tri { transform-origin: 50% 70%; animation: jo-tri 5s ease-in-out infinite; }
+@keyframes jo-tri { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-8deg); } 50% { transform: rotate(0) scale(1.06); } 75% { transform: rotate(7deg); } }
+.jo-world-card .jo-shape-cube { animation: jo-cube 4.2s 1s ease-in-out infinite; }
+@keyframes jo-cube { 0%,70%,100% { transform: scale(1) rotate(0); } 80% { transform: scale(1.12) rotate(-6deg); } 90% { transform: scale(.97) rotate(3deg); } }
+.jo-world-card .jo-shape-ball { transform-origin: 50% 100%; animation: jo-ball 1.8s ease-in-out infinite; }
+@keyframes jo-ball { 0%,100% { transform: translateY(0); } 45%,55% { transform: translateY(-40%); } }
+.jo-world-card.is-picked .jo-block, .jo-world-card.is-picked .jo-cow-head, .jo-world-card.is-picked .jo-shape-ball { animation-duration: 1s; }
+
+/* ── "Start exploring" class picker ── */
+.jo-picker {
+  position: absolute; left: 0; top: calc(100% + 14px); z-index: 40;
+  width: min(380px, calc(100vw - 2.5rem)); padding: 18px; border-radius: 26px;
+  background: #fff; border: 1px solid rgba(20,51,94,.08);
+  box-shadow: 0 30px 60px -24px rgba(20,51,94,.5);
+  animation: jo-picker-in .45s cubic-bezier(.34,1.56,.64,1) both; transform-origin: 20% 0;
+}
+@keyframes jo-picker-in { from { opacity: 0; transform: translateY(-8px) scale(.94); } to { opacity: 1; transform: none; } }
+.jo-picker-close { display: grid; place-items: center; width: 34px; height: 34px; flex-shrink: 0; border-radius: 999px; color: #14335E; background: #F1F5FB; transition: background-color .2s; }
+.jo-picker-close:hover { background: #E3EBF7; }
+.jo-picker-opt {
+  display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 14px 6px 12px; border-radius: 20px;
+  border: 2px solid transparent; text-align: center; -webkit-tap-highlight-color: transparent;
+  animation: jo-picker-opt .5s cubic-bezier(.34,1.56,.64,1) both;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), border-color .2s, box-shadow .25s;
+}
+.jo-picker-opt:hover, .jo-picker-opt:focus-visible { transform: translateY(-4px); border-color: var(--c); box-shadow: 0 14px 24px -14px var(--c); outline: none; }
+.jo-picker-opt:active { transform: scale(.95); transition-duration: .1s; }
+.jo-picker-emoji { font-size: 34px; line-height: 1.1; transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
+.jo-picker-opt:hover .jo-picker-emoji, .jo-picker-opt:focus-visible .jo-picker-emoji { transform: scale(1.15) rotate(-8deg); }
+@keyframes jo-picker-opt { from { opacity: 0; transform: translateY(10px) scale(.9); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .jo-drift, .jo-rise, .jo-twinkle, .jo-octo, .jo-phone-float, .jo-wave-hand, .jo-hero-copy, .jo-hero-visual,
+  .jo-cloud-drift, .jo-octo-drift, .jo-octo-float, .jo-octo-sway, .jo-octo-react, .jo-octo-hint, .jo-card-idle,
+  .jo-world-card, .jo-world-card *, .jo-tappable, .jo-bubble, .jo-picker, .jo-picker-opt { animation: none !important; }
+  .jo-rise { display: none; }
+  .jo-par-far, .jo-par-near, .jo-octo-lean { transform: none; transition: none; }
+  .jo-world-card, .jo-cta, .jo-cta svg, .jo-octo-btn, .jo-octo-bubble, .jo-card-say, .jo-picker-opt, .jo-picker-emoji { transition: none; }
+}
